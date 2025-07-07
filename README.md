@@ -17,20 +17,20 @@ CLI para generar proyectos web en Go de forma rápida y modular.
 ```bash
 git clone https://github.com/hiro-riveros/go-webgen.git
 cd go-webgen
-go build -o webgen
+go build -o go-webgen
 ```
 
 ## Usando Homebrew (próximamente)
 
 ```bash
 brew tap hiro-riveros/tap
-brew install webgen
+brew install go-webgen
 ```
 
 ## 🧪 Uso básico
 Generar un proyecto Gin:
 ```bash
-webgen generate myapp --gin
+go-webgen generate myapp --gin
 cd myapp
 ```
 
