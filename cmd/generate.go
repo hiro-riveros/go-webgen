@@ -13,6 +13,7 @@ import (
 )
 
 var withDocker bool
+var withGin bool
 
 // generateCmd represents the generate command
 var generateCmd = &cobra.Command{
@@ -42,9 +43,22 @@ var generateCmd = &cobra.Command{
 			fmt.Println("ℹ️ Docker no fue incluido")
 		}
 
+		if withGin {
+			err := scaffolder.GenerateGinApp(projectPath, scaffolder.GinConfig{
+				ProjectName:   projectName,
+				ProjectModule: projectPath,
+			})
+			if err != nil {
+				fmt.Println("❌ Error al generar base con Gin:", err)
+				return
+			}
+			fmt.Println("✅ Proyecto base con Gin generado")
+		}
+
 	},
 }
 
 func init() {
 	generateCmd.Flags().BoolVarP(&withDocker, "docker", "d", false, "Incluir Docker y docker-compose")
+	generateCmd.Flags().BoolVarP(&withGin, "gin", "g", false, "Incluir base con Gin")
 }

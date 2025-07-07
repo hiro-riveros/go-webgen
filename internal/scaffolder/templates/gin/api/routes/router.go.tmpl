@@ -1,0 +1,21 @@
+package routes
+
+import (
+	"{{ .ProjectModule }}/internal/api/middlewares"
+  "{{ .ProjectModule }}/internal/api/handlers"
+	"github.com/gin-gonic/gin"
+)
+
+func SetupRoutes(router *gin.Engine) {
+	// Middleware Globales
+	router.Use(middlewares.RateLimitMiddleware())
+	router.Use(middlewares.CorsMiddleware())
+
+	// Healt Check Route
+	router.GET("/health", handlers.PingHandler)
+
+	// PUBLIC ROUTES
+
+
+
+}

@@ -1,0 +1,26 @@
+package main
+
+import (
+	"{{ .ProjectModule }}/internal/api/routes"
+	"{{ .ProjectModule }}/models"
+
+	"fmt"
+	"log"
+  "github.com/gin-gonic/gin"
+)
+
+func main() {
+  // DB INIT
+	models.ConnectDataBase()
+
+	// Gin INIT
+	router := gin.Default()
+	routes.SetupRoutes(router)
+
+	// START SERVER
+	port := ":8080"
+	fmt.Printf("SERVER listening on port: %s\n", port)
+	if err := router.Run(port); err != nil {
+		log.Fatalf("Failed to run server: %v", err)
+	}
+}
