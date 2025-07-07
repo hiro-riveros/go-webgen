@@ -14,6 +14,7 @@ import (
 
 var withDocker bool
 var withGin bool
+var withAsynq bool
 
 // generateCmd represents the generate command
 var generateCmd = &cobra.Command{
@@ -55,10 +56,23 @@ var generateCmd = &cobra.Command{
 			fmt.Println("✅ Proyecto base con Gin generado")
 		}
 
+		if withAsynq {
+			err := scaffolder.GenerateAsynqApp(projectPath, scaffolder.ProjectConfig{
+				ProjectName:   projectName,
+				ProjectModule: projectPath,
+			})
+			if err != nil {
+				fmt.Println("❌ Error al generar base con Asynq:", err)
+				return
+			}
+			fmt.Println("✅ Proyecto base con Asynq generado")
+		}
+
 	},
 }
 
 func init() {
 	generateCmd.Flags().BoolVarP(&withDocker, "docker", "d", false, "Incluir Docker y docker-compose")
 	generateCmd.Flags().BoolVarP(&withGin, "gin", "g", false, "Incluir base con Gin")
+	generateCmd.Flags().BoolVarP(&withAsynq, "asynq", "a", false, "Incluir base con Asynq")
 }

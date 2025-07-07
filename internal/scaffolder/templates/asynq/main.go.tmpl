@@ -1,0 +1,33 @@
+package main
+
+import (
+  "{{ .ProjectModule }}/jobs"
+  "{{ .ProjectModule }}/models"
+	"os"
+
+	"fmt"
+	"log"
+)
+
+func main() {
+  // DB INIT
+	models.ConnectDataBase()
+
+	// Init Asynq Server
+	redisAddr := os.Getenv("REDIS_URI")
+	if redisAddr == "" {
+		redisAddr = "localhost:6379"
+	}
+
+
+  server := jobs.NewServer(redisAddr)
+
+	// Register tasks
+	mux := jobs.NewMux()
+	jobs.RegisterTasks(mux)
+
+	fmt.Println("🚀 Asynq Worker started...")
+	if err := server.Run(mux); err != nil {
+		log.Fatalf("❌ Failed to start Asynq server: %v", err)
+	}
+}

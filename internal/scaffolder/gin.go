@@ -12,7 +12,7 @@ type GinConfig struct {
 	ProjectModule string
 }
 
-func GenerateGinApp(projectPath string, cfg GinConfig) error {
+func GenerateGinApp(projectPath string, config GinConfig) error {
 	folders := []string{
 		filepath.Join(projectPath, "internal", "api", "dto"),
 		filepath.Join(projectPath, "internal", "api", "handlers"),
@@ -46,7 +46,7 @@ func GenerateGinApp(projectPath string, cfg GinConfig) error {
 			ginTemplates,
 			"templates/"+tmplName,
 			filepath.Join(projectPath, outputName),
-			cfg,
+			config,
 		)
 		if err != nil {
 			return err

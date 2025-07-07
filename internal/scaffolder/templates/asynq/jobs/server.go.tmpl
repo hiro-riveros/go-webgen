@@ -1,0 +1,16 @@
+package jobs
+
+import "github.com/hibiken/asynq"
+
+func NewServer(redisAddr string) *asynq.Server {
+	return asynq.NewServer(
+		asynq.RedisClientOpt{Addr: redisAddr},
+		asynq.Config{
+			Concurrency: 5,
+			Queues: map[string]int{
+				"critical": 10,
+				"default":  5,
+			},
+		},
+	)
+}
