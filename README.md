@@ -20,7 +20,7 @@ cd go-webgen
 go build -o go-webgen
 ```
 
-## Usando Homebrew (próximamente)
+## Usando Homebrew
 
 ```bash
 brew tap hiro-riveros/tap
