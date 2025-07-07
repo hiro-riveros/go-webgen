@@ -1,0 +1,27 @@
+FROM golang:1.24.3-alpine
+
+# Instalar Git (necesario para instalar Air)
+RUN apk add --no-cache git
+
+# Añadir Go bin al PATH
+ENV PATH="$PATH:/go/bin"
+
+# Instalar Air
+RUN go install github.com/air-verse/air@latest
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar mod y descargar dependencias
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
+
+# Copiar código
+COPY . .
+
+# Exponer puerto de app
+EXPOSE 4000
+
+# Ejecutar Air
+CMD ["air"]

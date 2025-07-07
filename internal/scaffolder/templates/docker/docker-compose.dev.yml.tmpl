@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: {{ .ProjectName }}-dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - ENV=development
